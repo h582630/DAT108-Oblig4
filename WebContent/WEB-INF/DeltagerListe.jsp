@@ -1,6 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,18 +19,25 @@
 			<th align="left">Mobil</th>
 		</tr>
 		<c:forEach var="participant" items="${participants}" varStatus="loop">
-		<%-- <tr bgcolor="#aaffaa"> Setter bakgrunnsfarge til grønn --%>
-		<tr bgcolor="#ffffff">
-			<td align="center">&#9792;</td>
-			
-			<td>${participant.firstName} ${participant.lastName}</td>
-			<td>${participant.phoneNumber}</td>
-			
-		</tr>
+			<tr bgcolor="#aaffaa"> 
+			<tr bgcolor="#ffffff">
+				<c:if test="${participant.sex == 'mann'}">
+					<td align="center">&#9794;</td>
+				</c:if>
+				<c:if test="${participant.sex == 'kvinne'}">
+					<td align="center">&#9792;</td>
+				</c:if>
+
+
+				<td>${participant.firstName}${participant.lastName}</td>
+				<td>${participant.phoneNumber}</td>
+
+			</tr>
 		</c:forEach>
 	</table>
 	<p>
-		<a href="loggut">Ferdig</a> <%--Her må det skrives inn ref til loggout servlet.  --%>
+		<a href="LoggOut">Ferdig</a>
+		<%--Her må det skrives inn ref til loggout servlet.  --%>
 	</p>
 </body>
 </html>
