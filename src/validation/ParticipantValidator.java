@@ -9,7 +9,7 @@ public class ParticipantValidator {
 	public static final String ANY_LETTER = "[a-zA-ZÊ¯Â∆ÿ≈-]";
 	public static final String ONLY_DIGITS = "[0-9]";
 
-	public static boolean firstNameValidator(String firstName) { // MÂ fikse for mellomrom osv.
+	public static boolean firstNameValidator(String firstName) {
 
 		return validateName(firstName);
 	}

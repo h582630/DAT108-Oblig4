@@ -38,10 +38,7 @@ public class PaameldingBekretftelse extends HttpServlet {
 			  request.getRequestDispatcher("WEB-INF/PaameldingsBekreftelse.jsp").forward(request, response);
 		  }
 		
-		
-		 
-		 // Hente ut info fra database med det telefonnummeret som nettopp registrerte seg
-		 
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

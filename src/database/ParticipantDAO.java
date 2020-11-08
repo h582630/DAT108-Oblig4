@@ -38,9 +38,5 @@ public class ParticipantDAO {
 
 		
 	}
-	@SuppressWarnings("unchecked")
-	public synchronized List<String> getUsername(){
-		return em.createNativeQuery("SELECT phonenumber FROM oblig4.participant", Participant.class).getResultList(); 
-	}
 
 }
