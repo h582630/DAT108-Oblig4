@@ -23,7 +23,6 @@ public class PaameldingBekretftelse extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		
 		 HttpSession sesjon = request.getSession(false);
 		 
 		  if (sesjon == null || sesjon.getAttribute("phoneNumber") == null) {
