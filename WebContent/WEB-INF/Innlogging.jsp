@@ -13,21 +13,24 @@
 	<h2>Logg inn</h2>
 	<p>Det er kun registrerte deltagere som får se deltagerlisten.</p>
 	<p>
-		<font color="red">Ugyldig brukernavn og/eller passord</font>
+		<font color="red">${loginError}</font>
 	</p>
 	<form method="post" class="pure-form pure-form-aligned">
 		<fieldset>
 			<div class="pure-control-group">
-				<label for="mobil">Mobil:</label> <input type="text" name="mobil" />
+				<label for="mobil">Mobil:</label> <input type="text" name="mobil" value="" required />
 			</div>
 			<div class="pure-control-group">
 				<label for="passord">Passord:</label> <input type="password"
-					name="passord" />
+					name="passord" value="" required />
 			</div>
 			<div class="pure-controls">
 				<button type="submit" class="pure-button pure-button-primary">Logg
 					inn</button>
 			</div>
+			<p>
+		<a href="Registration">Registrer deg</a>
+	</p>
 		</fieldset>
 	</form>
 

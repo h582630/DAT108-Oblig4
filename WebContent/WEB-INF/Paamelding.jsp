@@ -7,37 +7,42 @@
 <!-- Fra https://purecss.io/ -->
 <link rel="stylesheet"
 	href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+	
+	 <link href="formcontroller.css" rel="stylesheet" type="text/css" />
+	 
 <title>Påmelding</title>
 </head>
 <body>
 	<h2>Påmelding</h2>
+	
+	<div id="root">
 	<form method="post" class="pure-form pure-form-aligned">
 		<fieldset>
 			<div class="pure-control-group">
 				<label for="fornavn">Fornavn:</label> <input type="text"
-					name="fornavn" value="" /> 
+					name="fornavn" value="" required/> 
 				    <font color="red">${ loginFirstName }</font>
 				
 			</div>
 			<div class="pure-control-group">
 				<label for="etternavn">Etternavn:</label> <input type="text"
-					name="etternavn" value="" /> 
+					name="etternavn" value="" required/> 
 					<font color="red">${ loginLastName }</font>
 			</div>
 			<div class="pure-control-group">
 				<label for="mobil">Mobil (8 siffer):</label> <input type="text"
-					name="mobil" value="" /> 
+					name="mobil" value="" required/> 
 					<font color="red">${ loginPhone }</font>
 			</div>
 			<div class="pure-control-group">
 				<label for="password">Passord:</label> <input type="password"
-					name="passord" value="" /> 
+					name="passord" value="" required/> 
 					<font color="red">${ loginPassword }</font>
 			</div>
 			<div class="pure-control-group">
 				<label for="passordRepetert">Passord repetert:</label> <input
 					type="password" name="passordRepetert"
-					value="" /> 
+					value="" required/> 
 					<font color="red">${ loginRepeatPass }</font>
 			</div>
 			<div class="pure-control-group">

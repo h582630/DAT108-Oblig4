@@ -19,20 +19,23 @@
 			<th align="left">Mobil</th>
 		</tr>
 		<c:forEach var="participant" items="${participants}" varStatus="loop">
-			<tr bgcolor="#aaffaa"> 
-			<tr bgcolor="#ffffff">
-				<c:if test="${participant.sex == 'mann'}">
-					<td align="center">&#9794;</td>
-				</c:if>
-				<c:if test="${participant.sex == 'kvinne'}">
-					<td align="center">&#9792;</td>
-				</c:if>
+			<c:if test="${participant.phoneNumber == phoneNumber}">
+				<tr bgcolor="#aaffaa">
+			</c:if>
+			<c:if test="${participant.phoneNumber != phoneNumber}">
+				<tr bgcolor="#ffffff">
+			</c:if>
+			<c:if test="${participant.sex == 'mann'}">
+				<td align="center">&#9794;</td>
+			</c:if>
+			<c:if test="${participant.sex == 'kvinne'}">
+				<td align="center">&#9792;</td>
+			</c:if>
 
 
-				<td>${participant.firstName}${participant.lastName}</td>
-				<td>${participant.phoneNumber}</td>
+			<td>${participant.firstName} ${participant.lastName}</td>
+			<td>${participant.phoneNumber}</td>
 
-			</tr>
 		</c:forEach>
 	</table>
 	<p>

@@ -14,7 +14,7 @@ import static constants.AuthConstant.AUTH_VALUE;
 
 public class CookieUtil {
 	private final static String CHARACTER_ENCODING = "UTF-8";
-	private final static int MAX_AGE_IN_SECONDS = 120;
+	private final static int MAX_AGE_IN_SECONDS = 15;
 
 	public static void addCookieToResponse(HttpServletResponse response, String navn, String verdi) {
 		try {

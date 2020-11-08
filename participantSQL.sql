@@ -7,7 +7,8 @@ CREATE TABLE participant
 	firstName CHARACTER VARYING (20),
 	lastName CHARACTER VARYING (20),
 	phoneNumber CHARACTER VARYING (20),
-	password CHARACTER  (64),
+	password_hash CHARACTER  (256),
+	password_salt CHARACTER (32),
 	sex CHARACTER VARYING (15),
 	PRIMARY KEY (phonenumber)
 	

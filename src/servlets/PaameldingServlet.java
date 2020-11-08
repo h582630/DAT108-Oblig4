@@ -1,7 +1,9 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.List;
 
+import org.apache.commons.text.StringEscapeUtils;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import database.ParticipantDAO;
 import models.Participant;
+import services.PassordService;
 import validation.ParticipantValidator;
 import validation.PasswordValidator;
 
@@ -73,17 +76,24 @@ public class PaameldingServlet extends HttpServlet {
 
 		// Ta imot data fra påmeldingsskjema. Lagre det i database??
 
-		String firstName = request.getParameter("fornavn");
-		String lastName = request.getParameter("etternavn");
-		String phoneNumber = request.getParameter("mobil");
-		String password = request.getParameter("passord");
-		String repeatPass = request.getParameter("passordRepetert");
-		String sex = request.getParameter("kjonn");
-
-		Participant participant = new Participant(firstName, lastName, phoneNumber, password, sex);
+		String firstName = StringEscapeUtils.escapeHtml3(request.getParameter("fornavn"));
+		String lastName = StringEscapeUtils.escapeHtml3(request.getParameter("etternavn"));
+		String phoneNumber = StringEscapeUtils.escapeHtml3(request.getParameter("mobil"));
+		String password = StringEscapeUtils.escapeHtml3(request.getParameter("passord"));
+		String repeatPass = StringEscapeUtils.escapeHtml3(request.getParameter("passordRepetert"));
+		String sex = StringEscapeUtils.escapeHtml3(request.getParameter("kjonn"));
 
 		String invalid = "?";
 
+		List<Participant> checkForPhonenumber = participantDAO.getParticipants(); 
+		 
+		
+		for(Participant p : checkForPhonenumber) {
+			if(p.getPhoneNumber().equals(phoneNumber)) {
+			   response.sendRedirect(URL_REGISTRATION);
+			}
+		}
+		
 		if (!PasswordValidator.passwordValidator(password)) {
 			invalid += "&invalidPassword";
 		}
@@ -105,19 +115,24 @@ public class PaameldingServlet extends HttpServlet {
 		if (invalid != "?") {
 			response.sendRedirect(URL_REGISTRATION + invalid);
 		} else {
-			
-			 HttpSession sesjon = request.getSession(false);
-	            if (sesjon != null) {
-	                sesjon.invalidate();
-	            }
-	            sesjon = request.getSession(true);
-	            sesjon.setMaxInactiveInterval(200);
 
-	            sesjon.setAttribute("firstName", firstName);
-	            sesjon.setAttribute("lastName", lastName);
-	            sesjon.setAttribute("phoneNumber", phoneNumber);
-	            sesjon.setAttribute("sex", sex);
-	            
+			HttpSession sesjon = request.getSession(false);
+			if (sesjon != null) {
+				sesjon.invalidate();
+			}
+			sesjon = request.getSession(true);
+			sesjon.setMaxInactiveInterval(10);
+
+			sesjon.setAttribute("firstName", firstName);
+			sesjon.setAttribute("lastName", lastName);
+			sesjon.setAttribute("phoneNumber", phoneNumber);
+			sesjon.setAttribute("sex", sex);
+			
+			String password_salt = PassordService.genererTilfeldigSalt(); 
+			
+			String password_hash = PassordService.hashMedSalt(password, password_salt); 
+
+			Participant participant = new Participant(firstName, lastName, phoneNumber, password_hash, sex, password_salt);
 			
 			participantDAO.addParticipant(participant);
 			response.sendRedirect(URL_REG_CONFIRMED);
