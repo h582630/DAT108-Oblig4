@@ -41,7 +41,7 @@ public class Participant {
 
 		return formattedNumber;
 	}
-
+		
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}

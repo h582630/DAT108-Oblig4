@@ -1,6 +1,7 @@
 package servlets;
 
-import static constants.UrlMappings.URL_REGISTRATION;
+
+import static constants.UrlMappings.URL_LOGIN;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,7 +38,7 @@ public class DeltakerListeServlet extends HttpServlet {
 		
 
 		if (sesjon == null || (sesjon.getAttribute("phoneNumber") == null) && (username == null)) {
-			response.sendRedirect(URL_REGISTRATION);
+			response.sendRedirect(URL_LOGIN);
 		} else {
 
 			if (sesjon.getAttribute("firstName") != null) {

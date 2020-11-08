@@ -74,7 +74,7 @@ public class PaameldingServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// Ta imot data fra påmeldingsskjema. Lagre det i database??
+		// Når vi bruker ferdig bibliotek "escapeHTML3" så vil den ikke la oss bruke ÆØÅ. 
 
 		String firstName = StringEscapeUtils.escapeHtml3(request.getParameter("fornavn"));
 		String lastName = StringEscapeUtils.escapeHtml3(request.getParameter("etternavn"));
@@ -121,7 +121,7 @@ public class PaameldingServlet extends HttpServlet {
 				sesjon.invalidate();
 			}
 			sesjon = request.getSession(true);
-			sesjon.setMaxInactiveInterval(10);
+			sesjon.setMaxInactiveInterval(20);
 
 			sesjon.setAttribute("firstName", firstName);
 			sesjon.setAttribute("lastName", lastName);

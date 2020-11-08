@@ -1,7 +1,7 @@
 package servlets;
 
 import static constants.UrlMappings.URL_REGISTRATION; 
-
+import static constants.UrlMappings.URL_LOGIN;
 
 import java.io.IOException;
 
@@ -26,7 +26,7 @@ public class PaameldingBekretftelse extends HttpServlet {
 		 HttpSession sesjon = request.getSession(false);
 		 
 		  if (sesjon == null || sesjon.getAttribute("phoneNumber") == null) {
-	            response.sendRedirect(URL_REGISTRATION);
+	            response.sendRedirect(URL_LOGIN);
 		  } else {
 	
 			  String phoneNumber = FormatPhoneNumber.formatPhoneNumber(sesjon.getAttribute("phoneNumber").toString()); 
