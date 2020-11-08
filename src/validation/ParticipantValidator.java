@@ -1,6 +1,8 @@
 package validation;
 
+import java.util.List;
 
+import models.Participant;
 
 public class ParticipantValidator {
 
@@ -17,8 +19,7 @@ public class ParticipantValidator {
 		return validateName(lastName) && !lastName.contains(" ");
 	}
 
-	// Må være 8 siffer langt, må ikke eksistere fra før. Sjekke dette i en servlet
-	// som snakker med databasen??
+
 
 	public static boolean phoneNumberValidator(String number) {
 
@@ -29,6 +30,16 @@ public class ParticipantValidator {
 		}
 		return true;
 
+	}
+	
+	public static boolean checkExistingPhone(List<Participant> listOfParticipants, String existingNumber) {
+		
+		for(Participant p : listOfParticipants) {
+			if(p.getPhoneNumber().equals(existingNumber)) {
+				return false; 
+			}
+		}
+		return true;
 	}
 
 	private static boolean validateName(String name) {
@@ -47,4 +58,7 @@ public class ParticipantValidator {
 
 		return true;
 	}
+	
+	
+	
 }

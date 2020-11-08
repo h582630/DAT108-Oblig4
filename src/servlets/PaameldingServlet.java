@@ -19,6 +19,8 @@ import services.PassordService;
 import validation.ParticipantValidator;
 import validation.PasswordValidator;
 
+import services.FormatPhoneNumber;
+
 import static constants.UrlMappings.URL_REG_CONFIRMED;
 import static constants.UrlMappings.URL_REGISTRATION;
 
@@ -74,70 +76,79 @@ public class PaameldingServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// Når vi bruker ferdig bibliotek "escapeHTML3" så vil den ikke la oss bruke ÆØÅ. 
+		// Når vi bruker ferdig bibliotek "escapeHTML3" så vil den ikke la oss bruke ÆØÅ
+		// som første bokstav i fornavn eller etternavn.
 
-		String firstName = StringEscapeUtils.escapeHtml3(request.getParameter("fornavn"));
-		String lastName = StringEscapeUtils.escapeHtml3(request.getParameter("etternavn"));
+		String firstName = request.getParameter("fornavn");
+		String lastName = request.getParameter("etternavn");
 		String phoneNumber = StringEscapeUtils.escapeHtml3(request.getParameter("mobil"));
 		String password = StringEscapeUtils.escapeHtml3(request.getParameter("passord"));
 		String repeatPass = StringEscapeUtils.escapeHtml3(request.getParameter("passordRepetert"));
 		String sex = StringEscapeUtils.escapeHtml3(request.getParameter("kjonn"));
 
+		if (!(firstName.startsWith("Æ") || firstName.startsWith("Ø") || firstName.startsWith("Å"))) {
+			firstName = StringEscapeUtils.escapeHtml3(firstName);
+		}
+		if (!(lastName.startsWith("Æ") || lastName.startsWith("Ø") || lastName.startsWith("Å"))) {
+			lastName = StringEscapeUtils.escapeHtml3(lastName);
+		}
+
 		String invalid = "?";
 
-		List<Participant> checkForPhonenumber = participantDAO.getParticipants(); 
-		 
-		
-		for(Participant p : checkForPhonenumber) {
-			if(p.getPhoneNumber().equals(phoneNumber)) {
-			   response.sendRedirect(URL_REGISTRATION);
-			}
-		}
-		
-		if (!PasswordValidator.passwordValidator(password)) {
-			invalid += "&invalidPassword";
-		}
-		if (!ParticipantValidator.firstNameValidator(firstName)) {
-			invalid += "&invalidFirstName";
-		}
-		if (!ParticipantValidator.lastNameValidator(lastName)) {
-			invalid += "&invalidLastName";
-		}
-		if (!ParticipantValidator.phoneNumberValidator(phoneNumber)) {
-			invalid += "&invalidPhone";
-		}
-		if (!password.equals(repeatPass) || (repeatPass == "")) {
-			invalid += "&invalidRepeatPass";
-		}
-		if (sex == null) {
-			invalid += "&invalidSex";
-		}
-		if (invalid != "?") {
-			response.sendRedirect(URL_REGISTRATION + invalid);
+		List<Participant> checkForPhonenumber = participantDAO.getParticipants();
+
+		if (!ParticipantValidator.checkExistingPhone(checkForPhonenumber,
+				FormatPhoneNumber.formatPhoneNumber(phoneNumber))) {
+
+			response.sendRedirect(URL_REGISTRATION);
 		} else {
 
-			HttpSession sesjon = request.getSession(false);
-			if (sesjon != null) {
-				sesjon.invalidate();
+			if (!PasswordValidator.passwordValidator(password)) {
+				invalid += "&invalidPassword";
 			}
-			sesjon = request.getSession(true);
-			sesjon.setMaxInactiveInterval(20);
+			if (!ParticipantValidator.firstNameValidator(firstName)) {
+				invalid += "&invalidFirstName";
+			}
+			if (!ParticipantValidator.lastNameValidator(lastName)) {
+				invalid += "&invalidLastName";
+			}
+			if (!ParticipantValidator.phoneNumberValidator(phoneNumber)) {
+				invalid += "&invalidPhone";
+			}
+			if (!password.equals(repeatPass) || (repeatPass == "")) {
+				invalid += "&invalidRepeatPass";
+			}
+			if (sex == null) {
+				invalid += "&invalidSex";
+			}
+			if (invalid != "?") {
+				response.sendRedirect(URL_REGISTRATION + invalid);
+			} else {
 
-			sesjon.setAttribute("firstName", firstName);
-			sesjon.setAttribute("lastName", lastName);
-			sesjon.setAttribute("phoneNumber", phoneNumber);
-			sesjon.setAttribute("sex", sex);
-			
-			String password_salt = PassordService.genererTilfeldigSalt(); 
-			
-			String password_hash = PassordService.hashMedSalt(password, password_salt); 
+				HttpSession sesjon = request.getSession(false);
+				if (sesjon != null) {
+					sesjon.invalidate();
+				}
+				sesjon = request.getSession(true);
+				sesjon.setMaxInactiveInterval(20);
 
-			Participant participant = new Participant(firstName, lastName, phoneNumber, password_hash, sex, password_salt);
-			
-			participantDAO.addParticipant(participant);
-			response.sendRedirect(URL_REG_CONFIRMED);
+				sesjon.setAttribute("firstName", firstName);
+				sesjon.setAttribute("lastName", lastName);
+				sesjon.setAttribute("phoneNumber", phoneNumber);
+				sesjon.setAttribute("sex", sex);
+
+				String password_salt = PassordService.genererTilfeldigSalt();
+
+				String password_hash = PassordService.hashMedSalt(password, password_salt);
+
+				Participant participant = new Participant(firstName, lastName, phoneNumber, password_hash, sex,
+						password_salt);
+
+				participantDAO.addParticipant(participant);
+				response.sendRedirect(URL_REG_CONFIRMED);
+			}
+
 		}
 
 	}
-
 }
