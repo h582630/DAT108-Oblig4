@@ -8,85 +8,61 @@
 
 <link rel="stylesheet" type="text/css" href=css/index.css>
 
-<link rel="stylesheet" type="text/css" href=css/formController.css>
-
-
 <title>Registration</title>
-<script src="/js/FormController.js" defer></script>
-
+<script src="js/FormController.js" defer></script>
 </head>
 <body>
-	<div id="root">
-	<form method="post" action="Registration" data-form>
-			<div class="mainContainer">
-			<h2 class="title">Registration</h2>
+	<h2>Påmelding</h2>
+	<form action="Registration" method="post" id="root" class="pure-form pure-form-aligned">
+			<fieldset>
+			<div class="pure-control-group">
+				<label for="fornavn">Fornavn:</label> 
+				<input id="fornavnInput" type="text" name="fornavn" value="" fornavn-input/> 
+					<font color="red">${ loginFirstName }</font>
+			</div>
+			<div class="pure-control-group">
+				<label for="etternavn">Etternavn:</label> 
+				<input type="text" name="etternavn" value="" etternavn-input/> 
+					<font color="red">${ loginLastName }</font>
+						</div>
+						
+			<div class="pure-control-group">
+				<label for="mobil">Mobil (8 siffer):</label> 
+				<input type="text" name="mobil" value="" mobil-input/> 
+				<div id="myModal" class="modal">
+						<div class="modal-content">
+							<p>Passordstyrke regnes ut i fra lengden på passordet. 
+							Passord må være minst 6 karakterer langt.
+							</p>
+						</div>
+					</div>
+					<font color="red">${ loginPhone }</font>
+			</div>
 			
-			<label class="container">
-			<span>Fornavn:</span>
-			<input type="text" name="fornavn" id="fornavn" value="" />
-			</label>
-			<font color="red">${ loginFirstName }</font>
+			<div class="pure-control-group">
+				<label for="password">Passord:</label> 
+				<input type="password" name="passord" value="" passord-input/> 
+					<font color="red">${ loginPassword }</font>
+			</div>
+			<div class="pure-control-group">
+				<label for="passordRepetert">Passord repetert:</label> 
+				<input type="password" name="passordRepetert" value="" passrepetert-input/> 
+					<font color="red">${ loginRepeatPass }</font>
+			</div>
 			
-			
-			
-		    <label class="container">
-			<span>Etternavn:</span>
-			<input type="text" name="etternavn" id="etternavn" value="" />
-			</label>
-			<font color="red">${ loginLastName }</font>
-	
-	
-			<label class="container">
-			<span>Mobil:</span>
-			<input type="text" name="mobil" id="mobil" value="" />
-			</label>
-			<font color="red">${ loginPhone }</font>
-		
-			
-			<label class="container">
-			<span>Passord:</span>
-			<input type="password" name="passord" id="passord" value="" />
-			</label>
-			<font color="red">${ loginPassword }</font>
-	
-			
-			<label class="container">
-			<span>Passord repetert:</span>
-			<input type="password" name="passordRepetert" id="passordRepetert" value="" />
-			</label>
-			<font color="red">${ loginRepeatPass }</font>
-			
-			
-			 <div class="container">
-                <span>Kjønn:</span>
-                <div>
-                    <label>
-                        <input type="radio" name="kjonn"
-                               value="mann"/> mann
-                    </label>
-                    <label>
-                        <input type="radio" name="gender"
-                               value="kvinne"/>kvinne
-                    </label>
-                    		<font color="red">${ loginSex }</font>
-                </div>
-            </div>
-			
+			<div class="pure-control-group">
+				<label for="kjonn">Kjønn:</label> <input type="radio" name="kjonn"
+					value="mann" 
+					 />mann
+				<input type="radio" name="kjonn" value="kvinne" 
+					 />kvinne
+				<font color="red"></font>
+			</div>
 			<div class="pure-controls">
 				<button type="submit" class="pure-button pure-button-primary">Meld
 					meg på</button>
 			</div>
-			</div>
-	
-	</form>
-	 <div class="modal-password modal" data-password>
-        <div class="modal-content">
-            <span> Passordkrav: Minst 6 tegn
-            </span>
-        </div>
-        </div>
-        </div>
-        
-
+		</fieldset>
+		</form>
 </body>
 </html>

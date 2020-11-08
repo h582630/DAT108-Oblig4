@@ -1,85 +1,31 @@
 #root {
-    width: 65em;
+    float:left !important;
+}
+.errorStyle {
+    border-color: red !important;
 }
 
-.mainContainer {
-    margin-left: 4em;
-    display: grid;
-    grid-template:  repeat(8, 1fr) / repeat(2, 1fr);
-    padding: 15px 0;
-    background-color: white;
-    font-size: 24px;
+.validStyle {
+    border-color: limegreen !important;
 }
 
-.title {
-    margin: auto;
-    grid-column: 1;
-    font-size: 26px;
+.mediumStyle {
+    border-color: #ffc403 !important;
 }
 
-
-
-.container {
-    grid-column: 1;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    height: 3em;
-}
-
-.container > input {
-    margin: auto;
-    height: 1.5em;
-    font-size: 22px;
-    width: 10em;
-    border: solid 1px darkgrey;
-    border-radius: 5px;
-    box-shadow: inset 0 1px 3px #ddd;
-    padding: 2px;
-}
-
-.container > input:focus{
-    outline-offset: 0;
-    outline: none;
-    border: 2px dodgerblue solid;
-}
-
-.container > span {
-    width: 8em;
-    text-align: right;
-    margin: auto;
-}
-
-.container > label, .container > div {
-    margin: auto 10px;
-}
-
-
-
-.modal{
+.modal {
     display: none;
-    position: fixed;
-    z-index: 1;
+    width: 400px;
+    float:right;
 }
-
-.modal-password {
-    left: 38em;
-    top: 20em;
-    width: 36em;
-}
-
-
 .modal-content {
-    background-color: whitesmoke;
-    border: 1px solid #888;
-    border-radius: 2%;
-    padding: 5px;
-    width: 95%;
-    display: flex;
-    justify-items: center;
-
-}
-
-.modal-content > span {
-    margin: auto 0;
-    font-size: large;
+    background-color: #fefefe;
+    margin: auto;
+    padding-top: 0px;
+    padding-left: 15px;
+    width: 90%;
+    border: 1px solid #ffbb00;
+    border-style:dashed;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px #f0f0f0 inset;
 }
