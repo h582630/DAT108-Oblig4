@@ -8,12 +8,12 @@
 }
 
 .formcontroller_invalidInput {
-    /* lys - rød */
+    /* lys rød */
     background-color: rgb(255, 200, 200);
 }
 
 .formcontroller_strongPassword {
-    /* lys - grønn */
+    /* lys-grønn */
     background-color: rgb(200, 255, 200);
 }
 
