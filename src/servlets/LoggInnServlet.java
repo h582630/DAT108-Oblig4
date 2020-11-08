@@ -31,7 +31,6 @@ public class LoggInnServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-
 		String loginError = "";
 		if (request.getParameter("invalidUsernameOrPass") != null) {
 			loginError = "Feil brukernavn eller passord";
